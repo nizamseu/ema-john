@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import fakeData from '../../fakeData';
 import './shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
@@ -7,22 +6,33 @@ import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseMana
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Shop = () => {
-    const data = fakeData.slice(0, 10)
-    const [product, setProduct] = useState(data);
-
+   // const data = fakeData.slice(0, 10)
+    const [products, setProducts] = useState([]);
     const [cart,setCart]=useState([]);
 
+    useEffect(()=>{
+        fetch('http://localhost:4200/products')
+        .then(res=> res.json())
+        .then(data=>{
+            setProducts(data)
+        })
+
+    },[])
+
+console.log(products);
 
     useEffect(()=>{
         const saveCart=getDatabaseCart();
         const productKeys=Object.keys(saveCart);
-        const previousCart=productKeys.map(pdkey =>{
-            const product=fakeData.find(pd=>pd.key===pdkey);
-            product.quantity=saveCart[pdkey];
-            return product;
-        })
-        setCart(previousCart);
-    },[])
+        if(products.length>0){
+            const previousCart=productKeys.map(pdkey =>{
+                const product=products.find(pd=>pd.key===pdkey);
+                product.quantity=saveCart[pdkey];
+                return product;
+            })
+            setCart(previousCart);
+        }
+    },[products])
 
     const handleAddEvent=(productt)=>{
         const toBeAddedKey=productt.key;
@@ -52,17 +62,18 @@ const Shop = () => {
         <div className="shop-container">
            
             <div className="product-container">
-            <h1>Product:{product.length}</h1>
-           
-           
-                {product.map(productData =><Product 
+                
+                 <h1> Product:{products.length } </h1>
+       
+                {products.length && products.map(productData => <Product 
                  key={productData.key}   
                  showAddToCard={true}
-                 handleAddEvent={handleAddEvent} productItem={productData}>
+                 handleAddEvent={handleAddEvent} 
+                 productItem={productData}>
 
                 </Product>)}
             
-            
+                 
             </div>
 
 

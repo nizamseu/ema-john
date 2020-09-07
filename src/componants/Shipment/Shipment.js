@@ -2,12 +2,39 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import "./shipment.css";
 import { useAuth } from '../Login/useAuth';
+import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
 
 
 const Shipment = () => {
-    const { register, handleSubmit, errors } = useForm()
-    const onSubmit = data => { console.log(data) }
+    const { register, handleSubmit, errors } = useForm();
     const auth=useAuth();
+    const onSubmit = data => { 
+      console.log(data) 
+    //TODO :Nizam move to this After payment
+  console.log(auth.user.email);
+  const saveCart= getDatabaseCart();
+  const orderDetails={email:auth.user.email,cart:saveCart}
+  fetch('http://localhost:4200/placeOrder',{
+    method: 'POST', 
+    headers: {
+    'Content-Type': 'application/json'
+},
+body: JSON.stringify(orderDetails) 
+
+})
+.then(res =>res.json())
+.then(data => {
+  console.log('order Placed');
+  alert('suceesfully placed,Order Id : '+ data._id);
+  processOrder();
+
+})
+
+    }
+
+
+   
+
     return (
       <form className="shipment-form" onSubmit={handleSubmit(onSubmit)}>
 

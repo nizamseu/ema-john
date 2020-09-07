@@ -1,16 +1,16 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import logo from '../../images/logo.png';
 import './header.css';
 import {useAuth} from '../Login/useAuth';
-import { Link } from 'react-router-dom';
 
-const usePrevious=value =>{
-    const prev=useRef();
-    useEffect( () =>{
-        prev.current=value;
-    },[value])
-    return prev.current;
-}
+
+// const usePrevious=value =>{
+//     const prev=useRef();
+//     useEffect( () =>{
+//         prev.current=value;
+//     },[value])
+//     return prev.current;
+// }
 
 const Header = () => {
     const auth= useAuth()

@@ -4,7 +4,7 @@ import './reviewitem.css'
 const ReviewItem = (props) => {
     const {name,key,price,quantity}=props.product;
     
-    
+ 
     return (
         <div className="reviewItem">
             <h4 className="product-name">{name}</h4>

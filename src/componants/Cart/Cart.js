@@ -1,11 +1,9 @@
 import React from 'react';
-import { useAuth } from '../Login/useAuth';
 // import { UserContest } from '../../App';
 
 
 const Cart = (props) => {
     const cart=props.cart;
-    const auth=useAuth()
     // const user=useContext(UserContest);
     // console.log(auth.user);
     
