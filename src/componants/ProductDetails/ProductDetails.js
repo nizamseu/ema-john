@@ -9,7 +9,7 @@ const ProductDetails = () => {
    const [product,setProduct]=useState(null);
     
    useEffect(()=>{
-       fetch('http://localhost:4200/product/'+ productKey)
+       fetch('https://intense-savannah-14597.herokuapp.com/product/'+ productKey)
        .then(resb=>resb.json())
        .then(data => {
            setProduct(data);

@@ -33,7 +33,7 @@ const Review = () => {
         const saveCart=getDatabaseCart();
         const productKeys=Object.keys(saveCart);
         console.log(productKeys);
-        fetch('http://localhost:4200/getProductByKey',{
+        fetch('https://intense-savannah-14597.herokuapp.com/getProductByKey',{
             method: 'POST', 
             headers: {
             'Content-Type': 'application/json'
